@@ -3,7 +3,7 @@
 **NetScanX** is an advanced Python-based network utility tool designed for ethical hackers, cybersecurity learners, and network admins.  
 It offers multiple powerful features like local network scanning, IP geolocation, MAC vendor lookup, port scanning, and more — all from one terminal UI.
 
-![NetScanX Output](img/netscan_output.png)
+![NetScanX Output](img/netscan_banner.png)
 
 ## 🚀 Features
 
