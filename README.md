@@ -25,11 +25,11 @@ It offers multiple powerful features like local network scanning, IP geolocation
 
 ```bash
 git clone https://github.com/Rorychhattish/NetscanX.git
-cd NetScanX
+cd NetscanX
 
 ## 🖥️ Requirements
 
-Make sure Python 3 is installed.  
+Make sure Python is installed.  
 Install the dependencies via:
 
 ```bash
@@ -40,18 +40,18 @@ pip install -r requirements.txt
 🪟 **On Windows**:
 Open Command Prompt or PowerShell.
 Navigate to the cloned folder:
-cd NetScanX
+cd NetscanX
 Run the script:
-python netscanx.py
+python NetscanX.py
 ⚠️ Run as Administrator if MAC scanning fails or no devices are detected.
 
 🐧 **On Linux (Ubuntu, Kali, etc.)**:
 Open Terminal
 Navigate to the cloned folder:
-cd NetScanX
+cd NetscanX
 Run the script with sudo (needed for ARP scanning):
 
-sudo python3 netscanx.py
+sudo python3 NetscanX.py
 ⚠️ If you face PermissionError or no output on scanning, make sure you're using sudo.
 
 🧑‍💻 Powered by Chhattish
