@@ -1,3 +1,6 @@
+__version__ = "1.0.0"
+__author__ = "Rorychhattish"
+
 from scapy.all import ARP, Ether, srp
 import requests
 from mac_vendor_lookup import MacLookup
