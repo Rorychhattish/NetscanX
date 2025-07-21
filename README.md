@@ -15,54 +15,52 @@ It offers multiple powerful features like local network scanning, IP geolocation
 - 🌐 Hostname Resolver  
 - 🧠 IP Type & Range Analyzer  
 
-## 🖥️ Supported Platforms
+📦 **NetScanX Installation & Usage Guide**
+⚙️**1. Clone the Repository**
+      git clone https://github.com/Rorychhattish/NetscanX.git
+      cd NetscanX
+🧰 **2. Set Up Python Virtual Environment (Recommended)**
+      python3 -m venv venv
+      source venv/bin/activate
+    ✅ This keeps dependencies isolated and avoids system-wide conflicts.
 
-- ✅ Windows  
-- ✅ Linux  
+📦 **3. Install Required Dependencies**
+      pip install -r requirements.txt
+      
+▶️ **4. Run NetScanX**
+      sudo python3 NetscanX.py
+  ⚠️ sudo is required to perform low-level network operations like ARP scanning.
+  If not run with sudo, you may get Permission Error or no devices detected.
 
-## 📦 Installation
 
-### ⚙️ 1. Clone the repository:
+**🌐 Run NetScanX Globally (Optional)**
+      If you want to use netscanx as a command from any directory, follow these steps:
 
-```bash
-git clone https://github.com/Rorychhattish/NetscanX.git
-cd NetscanX
-🧰 Requirements
-Make sure Python is installed.
+  ✅ **Step 1: Make the script executable**
+      chmod +x NetscanX.py
 
-Install the dependencies via:
-pip install -r requirements.txt
+  ✅ **Step 2: Create a global symbolic link**
+      sudo ln -s $(pwd)/NetscanX.py /usr/local/bin/netscanx
 
-▶️ **How to Run NetScanX**
-🪟 **On Windows**:
-Open Command Prompt or PowerShell.
-Navigate to the cloned folder:
+  🔹 **Now you can run it globally:**
+      sudo netscanx
+    🔁 You still need to activate the virtual environment first if you used venv. You can automate this in future with a wrapper script if you want.
 
-cd NetscanX
-python NetscanX.py
-⚠️ Run as Administrator if MAC scanning fails or no devices are detected.
 
-🐧 **On Linux (Ubuntu, Kali, etc.)**:
-Open Terminal
-Navigate to the cloned folder:
-cd NetscanX
-sudo python3 NetscanX.py
-⚠️ If you face PermissionError or no output on scanning, make sure you're using sudo.
+🧠 **Pro Tip: Auto-activate venv on global run (optional advanced)**
+      If you want to make global command use the virtual environment automatically, create a wrapper script:
 
-🌐 How to Run NetScanX Globally on Linux
-If you want to run NetScanX from any directory in the terminal (without navigating to the folder every time), follow these steps:
-
-✅ Step 1: Make the script executable
-chmod +x NetscanX.py
-
-✅ Step 2: Create a symbolic link to a global location (like /usr/local/bin)
-sudo ln -s $(pwd)/NetscanX.py /usr/local/bin/netscanx
-🔹 Now you can run the tool globally from any terminal using:
-
-sudo netscanx
-⚠️ Note: sudo is required because the tool uses ARP scanning and raw sockets.
+      netscanx.sh:
+        #!/bin/bash
+        cd /path/to/NetscanX
+        source venv/bin/activate
+        sudo python3 NetscanX.py
+        
+      Then symlink this script:  
+        chmod +x netscanx.sh
+        sudo ln -s $(pwd)/netscanx.sh /usr/local/bin/netscanx
+      # Now netscanx will activate venv and run the tool in one go.
 
 👨‍💻 **Powered by Chhattish**
 This tool was created by Chhattish, a student passionate about cybersecurity, network programming, and ethical hacking.
 Feel free to ⭐ star this repo if you like it!
-
