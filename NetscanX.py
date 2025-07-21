@@ -54,13 +54,15 @@ def get_location_from_ip(ip):
 
 # 📱 Scan Local Network
 def scan(ip_range):
-    print(f"\n🔍 Scanning Network: {ip_range}")
-    print("────────────────────────────────")
+    print(f"\n📡 Scanning Local Network Range: {ip_range}")
+    print("────────────────────────────────────────────")
 
+    # Prepare ARP request
     arp = ARP(pdst=ip_range)
     ether = Ether(dst="ff:ff:ff:ff:ff:ff")
     packet = ether / arp
 
+    # Send packet and receive responses
     result = srp(packet, timeout=3, verbose=0)[0]
     devices = []
 
@@ -68,22 +70,30 @@ def scan(ip_range):
         ip = received.psrc
         mac = received.hwsrc
         vendor = get_mac_vendor(mac)
+
         try:
             hostname = socket.gethostbyaddr(ip)[0]
-        except:
+        except socket.herror:
             hostname = "Unknown"
-        devices.append({'ip': ip, 'mac': mac, 'vendor': vendor, 'hostname': hostname})
 
-    print(f"\n📋 Connected Devices ({len(devices)} Found)")
-    print("────────────────────────────────")
+        devices.append({
+            'ip': ip,
+            'mac': mac,
+            'vendor': vendor,
+            'hostname': hostname
+        })
+
+    print(f"\n📋 Connected Devices Found: {len(devices)}")
+    print("────────────────────────────────────────────")
 
     for idx, device in enumerate(devices, 1):
         print(f"\n#{idx}")
-        print(f"📱 IP Address : {device['ip']}")
-        print(f"🔗 MAC Addr   : {device['mac']}")
-        print(f"🍿 Vendor     : {device['vendor']}")
-        print(f"🖥️ Hostname   : {device['hostname']}")
+        print(f"📱 IP Address  : {device['ip']}")
+        print(f"🔗 MAC Address : {device['mac']}")
+        print(f"🍿 Vendor      : {device['vendor']}")
+        print(f"🖥️ Hostname    : {device['hostname']}")
 
+        # Location lookup only for public IPs
         if not device['ip'].startswith(("192.168", "10.", "172.")):
             get_location_from_ip(device['ip'])
         else:
@@ -175,31 +185,33 @@ def lookup_hostname(ip):
 
 # 📘 Main Menu
 def main():
-    while True:
-        clear()
-        print(r"""
+    clear()
+    print(r"""
   🅿 🅾 🆆 🅴 🆁 🅴 🅳    🅱 🆈    🅲 🅷 🅷 🅰 🆃 🆃 🅸 🆂 🅷                                                                                                                                                               
                                                                                                                                                                      
-  NNNNNNN        NNNNNNN                             ttt             SSSSSSSSSSSSSSS                                                      XXXXXXX         XXXXXXX
-  N::::::N       N:::::N                          ttt::t           SS:::::::::::::::S                                                     X:::::X        X:::::X
-  N:::::::N      N:::::N                          t::::t          S:::::SSSSSS::::::S                                                      X:::::X       X:::::X
-  N::::::::N     N:::::N                          t::::t          S:::::S     SSSSSSS                                                      X::::::X     X::::::X
-  N:::::::::N    N:::::N    eeeeeeeeeee    ttttttt::::ttttttt    S:::::S                ccccccccccccc  aaaaaaaaaaaaa   nnnn  nnnnnnnn      XXX:::::X  X:::::XXX
-  N::::::::::N   N:::::N  ee:::::::::::ee  t::::::::::::::::t    S:::::S              cc::::::::::::c  a::::::::::::a  n:::nn::::::::nn      X:::::X X:::::X   
-  N::::::N::::N  N:::::N e:::::eeeee:::::eet::::::::::::::::t     S::::SSSS          c::::::::::::::c  aaaaaaaaa:::::a n::::::::::::::nn      X:::::X:::::X    
+  NNNNNNN        NNNNNNN                             ttt             SSSSSSSSSSSSSSS                                                   XXXXXXX           XXXXXxX
+  N::::::N       N:::::N                          ttt::t           SS:::::::::::::::S                                                   X:::::X         X:::::X
+  N:::::::N      N:::::N                          t::::t          S:::::SSSSSS::::::S                                                    X:::::X       X:::::X
+  N::::::::N     N:::::N                          t::::t          S:::::S     SSSSSSS                                                     X:::::X     X:::::X
+  N:::::::::N    N:::::N    eeeeeeeeeee    ttttttt::::ttttttt    S:::::S                ccccccccccccc  aaaaaaaaaaaaa   nnnn  nnnnnnnn      X::::::X  X:::::X
+  N::::::::::N   N:::::N  ee:::::::::::ee  t::::::::::::::::t    S:::::S              cc::::::::::::c  a::::::::::::a  n:::nn::::::::nn     X:::::X X:::::X   
+  N::::::N::::N  N:::::N e:::::eeeee:::::eet::::::::::::::::t     S::::SSSS          c::::::::::::::c  aaaaaaaaa:::::a n::::::::::::::nn     X:::::X::::X    
   N:::::N N::::N N:::::Ne:::::e     e:::::etttttt::::::tttttt      SS::::::SSSSS    c::::::ccccc::::c           a::::a nn:::::::::::::::n     X:::::::::X     
   N:::::N  N::::N::::::Ne::::::eeeee::::::e      t::::t              SSS::::::::SS  c:::::c     ccccc    aaaaaaa:::::a   n:::::nnnn:::::n     X:::::::::X     
-  N:::::N   N::::::::::Ne::::::::::::::::e       t::::t                 SSSSSS::::S c::::c              aa::::::::::::a   n::::n    n::::n    X:::::X:::::X    
-  N:::::N    N:::::::::Ne:::::eeeeeeeeeee        t::::t                      S:::::Sc::::c             a::::aaaa::::::a   n::::n    n::::n   X:::::X X:::::X   
-  N:::::N     N::::::::Ne::::::e                 t::::t    tttttt            S:::::Sc:::::c     ccccc a::::a    a:::::a   n::::n    n::::nXXX:::::X   X:::::XXX
-  N:::::N      N:::::::Ne:::::::e                t:::::tttt:::::tSSSSSSS     S:::::Sc::::::ccccc::::ca::::a    a:::::a   n::::n    n::::nX::::::X      X::::::X
-  N:::::N       N::::::N e:::::::eeeeeeee        tt:::::::::::::tS::::::SSSSSS:::::S c::::::::::::::ca:::::aaaa::::::a   n::::n    n::::nX:::::X        X:::::X
-  N:::::N        N:::::N  ee::::::::::::e          tt::::::::::ttS:::::::::::::::SS   cc::::::::::::c a::::::::::aa:::a  n::::n    n::::nX:::::X         X:::::X
+  N:::::N   N::::::::::Ne::::::::::::::::e       t::::t                 SSSSSS::::S c::::c              a:::::::::::::a  n::::n    n::::n    X:::::X:::::X    
+  N:::::N    N:::::::::Ne:::::eeeeeeeeeee        t::::t                      S:::::Sc::::c             a::::aaaa::::::a  n::::n    n::::n   X:::::X X:::::X   
+  N:::::N     N::::::::Ne::::::e                 t::::t    tttttt            S:::::Sc:::::c     ccccc a::::a    a:::::a  n::::n    n::::n  X:::::X   X:::::X
+  N:::::N      N:::::::Ne:::::::e                t:::::tttt:::::tSSSSSSS     S:::::Sc::::::ccccc::::ca::::a    a:::::a   n::::n    n::::n X:::::X     X:::::X
+  N:::::N       N::::::N e:::::::eeeeeeee        tt:::::::::::::tS::::::SSSSSS:::::S c::::::::::::::ca:::::aaaa::::::a   n::::n    n::::nX:::::X       X:::::X
+  N:::::N        N:::::N  ee::::::::::::e          tt::::::::::ttS:::::::::::::::SS   cc::::::::::::c a::::::::::aa:::a  n::::n    n::::nX:::::X        X:::::X
   NNNNNNN         NNNNNN    eeeeeeeeeeeee            tttttttttt   SSSSSSSSSSSSSSS       ccccccccccccc  aaaaaaaaaa  aaaa  nnnnnn    nnnnnnXXXXXXX         XXXXXXX
 
                                                              🔍  Advanced Network Scanner Tool
 ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 """)
+    while True:
+        print("\n📋 Menu Options")
+        print("────────────────────────────────")
         print("1️⃣  Scan Local Network")
         print("2️⃣  Lookup Public IP Location + ASN")
         print("3️⃣  Lookup MAC from Local IP")
@@ -211,7 +223,7 @@ def main():
         choice = input("👉 Enter your choice (1–7): ")
 
         if choice == '1':
-            ip_range = input("📝 Enter IP range (e.g. 192.168.1.0/24): ")
+            ip_range = input("📝 Enter IP range (e.g. 192.xxx.x.0/24): ")
             scan(ip_range)
             input("\n⏎ Press Enter to return to menu...")
         elif choice == '2':
@@ -234,9 +246,16 @@ def main():
             input("\n⏎ Press Enter to return to menu...")
         elif choice == '5':
             ip = input("🔓 Enter IP to scan for open ports: ")
-            common_ports = [21, 22, 23, 25, 53, 80, 110, 135, 139, 143, 443, 445, 587, 993, 995, 3306, 3389]
-            scan_open_ports(ip, common_ports)
+            custom = input("🎯 Do you want full scan (1-65535)? [y/N]: ").lower()
+            
+            if custom == 'y':
+                ports = list(range(1, 65536))
+            else:
+                ports = [21, 22, 23, 25, 53, 80, 110, 135, 139, 143, 443, 445, 587, 993, 995, 3306, 3389]
+
+            scan_open_ports(ip, ports)
             input("\n⏎ Press Enter to return to menu...")
+
         elif choice == '6':
             ip = input("🌐 Enter IP to lookup hostname: ")
             lookup_hostname(ip)
