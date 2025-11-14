@@ -221,7 +221,7 @@ def main():
         print("4️⃣  Check IP Type and Range")
         print("5️⃣  Scan Open Ports")
         print("6️⃣  Lookup Hostname from IP")
-        print("7️⃣  Exit")
+        print(" 19 Exit")
         print("────────────────────────────────")
         choice = input("👉 Enter your choice (1–7): ")
 
