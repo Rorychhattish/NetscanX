@@ -1,3 +1,13 @@
+# Python cache
 __pycache__/
 *.pyc
+*.pyo
+
+# Virtual Environment
+venv/
 .env
+
+# OS / Editor junk
+.DS_Store
+.idea/
+.vscode/
