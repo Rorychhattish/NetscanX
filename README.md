@@ -6,7 +6,7 @@ It offers multiple powerful network reconnaissance features into a single, clean
 🏷️ **Version:** v1.0.0  
 📅 **Status:** Stable Release
 
-![NetScanX Output](img/netscan_banner.png)
+![NetScanX Output](img/Banner.png)
 
 
 ## 🚀 Features
