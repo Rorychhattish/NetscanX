@@ -285,7 +285,7 @@ def main():
     check_root()
     clear()
     print(r"""
-  🅿 🅾 � 🅴 � 🅴 🅳    🅱 🆈    🅲 🅷 🅷 🅰 🆃 🆃 🅸 🆂 🅷                                                                                                                                                               
+  🅿 🅾 🆆 🅴 🆁 🅴 🅳    🅱 🆈    🅲 🅷 🅷 🅰 🆃 🆃 🅸 🆂 🅷                                                                                                                                                               
                                                                                                                                                                      
   NNNNNN        NNNNNNN                          tttttt           SSSSSSSSSSSSSSS                                                   XXXXXXX           XXXXXxX
   N:::::N       N:::::N                          t::::t         SS:::::::::::::::S                                                   X:::::X         X:::::X

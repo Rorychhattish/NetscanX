@@ -48,19 +48,25 @@ It offers multiple powerful network reconnaissance features into a single, clean
   cd NetscanX
   ```
 
-🧰 **2. Set Up Python Virtual Environment (Recommended)**
+🔐 **2. Switch to Root User (Recommended)**
+```bash
+  sudo su
+  ```
+💡 Switching to root once avoids permission issues
+
+🧰 **3. Set Up Python Virtual Environment (Recommended)**
 ```bash
   python3 -m venv venv
   source venv/bin/activate
   ```
 
-📦 **3. Install Required Dependencies**
+📦 **4. Install Required Dependencies**
 ```bash
   pip install -r requirements.txt
   ```    
-▶️ **4. Run NetScanX**
+▶️ **5. Run NetScanX**
 ```bash
-  sudo python3 netscanx.py
+  python3 netscanx.py
   ```
 
 🌐 **Run NetScanX Globally (Optional)**
@@ -73,14 +79,14 @@ It offers multiple powerful network reconnaissance features into a single, clean
 
   ✅ **Step 2: Create a global symbolic link**
   ```bash
-    sudo ln -s $(pwd)/netscanx.py /usr/local/bin/netscanx
+    ln -s $(pwd)/netscanx.py /usr/local/bin/netscanx
   ```
 
   🔹 **Now you can run it globally:**
   ```bash
-    sudo netscanx
+    netscanx
   ```
-    🔁 You still need to activate the virtual environment first if you used venv.
+  🔁 You still need to activate the virtual environment first if you used venv.
 
 
 🧠 **Auto-activate venv on global run (optional advanced)**
@@ -93,13 +99,13 @@ It offers multiple powerful network reconnaissance features into a single, clean
     #!/bin/bash
     cd /path/to/NetscanX
     source venv/bin/activate
-    sudo python3 NetscanX.py
+    python3 netscanx.py
   ```
         
     Then symlink this script:  
   ```bash
       chmod +x netscanx.sh
-      sudo ln -s $(pwd)/netscanx.sh /usr/local/bin/netscanx
+      ln -s $(pwd)/netscanx.sh /usr/local/bin/netscanx
   ```
     # Now netscanx will activate venv and run the tool in one go.
 
